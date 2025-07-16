@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root' // Esto hace que el servicio sea singleton
+})
+
+
 
 @Component({
   selector: 'app-root',
@@ -20,6 +27,7 @@ export interface forumPost {
 }
 
 export interface datoPost {
+  id: number;
   nombre: string;
   telefono: string;
   direccion: string;
