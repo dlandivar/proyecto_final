@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-//import { forumPost } from '../app';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { datoPost } from '../app';
-//import { ForumsService } from '../forums.service';
 import { DataService } from '../data.service';
 
 
@@ -17,14 +15,7 @@ import { DataService } from '../data.service';
 })
 export class Home {
 
-  // constructor(private forumService: ForumsService) { }
   constructor(private dataService: DataService) { }
-  /*forum: forumPost = {
-    userId: 0,
-    id: 0,
-    title: '',
-    body: ''
-  };*/
 
   contacto: datoPost = {
     id: 0,
@@ -42,16 +33,6 @@ export class Home {
     this.esEdicion = true;
   }
 
-  //forums: forumPost[] = [];
-
-  /*ngOnInit() {
-    // Initialize the forums array or fetch it from a service
-    this.forumService.getForums().subscribe(data => {
-      this.forums = data;
-      console.log('Forums loaded:', data);
-    });
-    console.log('algo');
-  }*/
 
   ngOnInit() {
     this.contactos = this.dataService.getItems();
@@ -80,24 +61,21 @@ export class Home {
 
   }
 
-confirmarEliminar(id: number) {
-  if (confirm('¿Estás seguro de que deseas eliminar este contacto?')) {
-    this.eliminarContacto(id);
+  confirmarEliminar(id: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar este contacto?')) {
+      this.eliminarContacto(id);
+    }
   }
-}
 
-eliminarContacto(id: number) {
-  this.contactos = this.contactos.filter(c => c.id !== id);
+  eliminarContacto(id: number) {
+    this.contactos = this.contactos.filter(c => c.id !== id);
 
-  // Si usas DataService para persistir:
-  this.dataService.setContactos(this.contactos);
-
-  // Si estás editando y eliminas el contacto que está en el formulario:
-  if (this.contacto.id === id) {
-    this.contacto = { id: 0, nombre: '', direccion: '', telefono: '' };
-    this.esEdicion = false;
+    this.dataService.setContactos(this.contactos);
+    if (this.contacto.id === id) {
+      this.contacto = { id: 0, nombre: '', direccion: '', telefono: '' };
+      this.esEdicion = false;
+    }
   }
-}
 
 
 

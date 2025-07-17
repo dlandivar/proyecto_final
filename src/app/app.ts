@@ -19,13 +19,6 @@ export class App{
   title = 'apis';
 }
 
-export interface forumPost {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
-
 export interface datoPost {
   id: number;
   nombre: string;

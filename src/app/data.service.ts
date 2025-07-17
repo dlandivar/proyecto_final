@@ -7,7 +7,7 @@ import { datoPost } from './app';
 })
 export class DataService {
   private items: datoPost[] = [];
-
+//http://localhost:8080/api/users
   getItems(): datoPost[] {
     return this.items;
   }
