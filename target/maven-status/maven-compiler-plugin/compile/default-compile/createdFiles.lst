@@ -3,4 +3,5 @@ bce\ec\demo\controllers\UserController.class
 bce\ec\demo\dao\UserRepository.class
 bce\ec\demo\entities\User.class
 bce\ec\demo\DemoApplication.class
+bce\ec\demo\config\SecurityConfig.class
 bce\ec\demo\services\UserService.class

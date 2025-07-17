@@ -19,9 +19,9 @@ import bce.ec.demo.dto.UserDto;
 import bce.ec.demo.entities.User;
 import bce.ec.demo.services.UserService;
 
+@CrossOrigin("*")   
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin("*") // Allow all origins for demonstration purposes   
 public class UserController {
         
     @Autowired

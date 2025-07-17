@@ -1,14 +1,14 @@
 <br>
 <br>
-<form #forumForm="ngForm" (ngSubmit)="onSubmit(contacto)">
+<form #forumForm="ngForm" (ngSubmit)="onSubmit(contacto, forumForm)">
     <label for="nombre">
-        Nombre: <input type="text" name="nombre" [(ngModel)]="contacto.nombre" required placeholder="Ingrese el nombre" />
+        Nombre: <input type="text" name="nombre" [(ngModel)]="contacto.name" required placeholder="Ingrese el nombre" />
     </label>
     <label for="direccion">
-        Dirección: <input type="text" name="direccion" [(ngModel)]="contacto.direccion" required placeholder="Ingrese la direccion" />
+        Dirección: <input type="text" name="direccion" [(ngModel)]="contacto.address" required placeholder="Ingrese la direccion" />
     </label>
     <label for="telefono">
-        Teléfono: <input type="text" name="telefono" [(ngModel)]="contacto.telefono" required placeholder="Ingrese el teléfono" />
+        Teléfono: <input type="text" name="telefono" [(ngModel)]="contacto.phone" required placeholder="Ingrese el teléfono" />
     </label>
     <button type="submit">Guardar</button>
 </form>
@@ -27,9 +27,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let contacto of contactos">
-      <td>{{ contacto.nombre }}</td>
-      <td>{{ contacto.direccion }}</td>
-      <td>{{ contacto.telefono }}</td>
+      <td>{{ contacto.name }}</td>
+      <td>{{ contacto.address }}</td>
+      <td>{{ contacto.phone }}</td>
       <td>
         <button (click)="editarContacto(contacto)">Editar</button>
        <button (click)="confirmarEliminar(contacto.id)">Eliminar</button>

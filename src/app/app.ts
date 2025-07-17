@@ -21,7 +21,7 @@ export class App{
 
 export interface datoPost {
   id: number;
-  nombre: string;
-  telefono: string;
-  direccion: string;
+  name: string;
+  address: string;
+  phone: string;
 }

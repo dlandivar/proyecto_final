@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { datoPost } from '../app';
 import { DataService } from '../data.service';
-
 
 
 @Component({
@@ -19,9 +18,9 @@ export class Home {
 
   contacto: datoPost = {
     id: 0,
-    nombre: '',
-    telefono: '',
-    direccion: ''
+    name: '',
+    address: '',
+    phone: ''
   };
 
   contactos: datoPost[] = [];
@@ -35,30 +34,35 @@ export class Home {
 
 
   ngOnInit() {
-    this.contactos = this.dataService.getItems();
+    this.dataService.obtenerContactos().subscribe(data => {
+      this.contactos = data;
+    });
   }
 
-  onSubmit(dato: datoPost) {
+  onSubmit(dato: datoPost, form: NgForm) {
     console.log('Form submitted:', dato);
+
     if (this.esEdicion) {
-      const index = this.contactos.findIndex(ct => ct.id === this.contacto.id);
-      if (index !== -1) {
-        this.contactos[index] = { ...this.contacto };
-      }
-      this.esEdicion = false;
+      this.dataService.actualizarContacto(this.contacto).subscribe((actualizado) => {
+        this.contactos = this.contactos.map(c => c.id === actualizado.id ? actualizado : c);
+        form.resetForm();
+        this.contacto = { id: 0, name: '', address: '', phone: '' };
+        this.esEdicion = false;
+      });
     } else {
-      const nuevoId = this.contactos.length + 1;
-      const contactoConId = { ...dato, id: nuevoId };
-      this.dataService.addItem(contactoConId);
+      this.dataService.agregarContacto(this.contacto).subscribe((nuevo) => {
+        this.contactos = [...this.contactos, nuevo];
+        form.resetForm();
+        this.contacto = { id: 0, name: '', address: '', phone: '' };
+      });
     }
+  }
 
 
-    this.contacto = { id: 0, nombre: '', direccion: '', telefono: '' };
-    this.contactos = this.dataService.getItems();
-
-
-
-
+  actualizarLista() {
+    this.dataService.obtenerContactos().subscribe(data => {
+      this.contactos = data;
+    });
   }
 
   confirmarEliminar(id: number) {
@@ -68,13 +72,11 @@ export class Home {
   }
 
   eliminarContacto(id: number) {
-    this.contactos = this.contactos.filter(c => c.id !== id);
 
-    this.dataService.setContactos(this.contactos);
-    if (this.contacto.id === id) {
-      this.contacto = { id: 0, nombre: '', direccion: '', telefono: '' };
-      this.esEdicion = false;
-    }
+    this.dataService.eliminarContacto(id).subscribe(() => {
+     //this.contactos = this.contactos.filter(c => c.id !== id);
+     this.contactos = [...this.contactos.filter(c => c.id !== id)];
+    });
   }
 
 
